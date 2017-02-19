@@ -53,14 +53,14 @@ namespace NSubstitute.Specs.Arguments
             Assert.That(CreateSubjectUnderTest(x).IsSatisfiedBy(y));
         }
 
-        public IArgumentMatcher CreateSubjectUnderTest(object value)
+        public IArgumentMatcher CreateSubjectUnderTest<T>(T value)
         {
-            return new EqualsArgumentMatcher(value);
+            return new EqualsArgumentMatcher<T>(value);
         }
 
         public IArgumentMatcher CreateSubjectForByRefType<T>(ref T value)
         {
-            return new EqualsArgumentMatcher(value);
+            return new EqualsArgumentMatcher<T>(value);
         }
 
         public void MethodWithARefArgument<T>(ref T arg) { }

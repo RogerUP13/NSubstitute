@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using NSubstitute.Core;
 using NSubstitute.Core.Arguments;
@@ -30,7 +31,19 @@ namespace NSubstitute
         /// <returns></returns>
         public static T Is<T>(T value)
         {
-            return ArgSpecQueue.EnqueueSpecFor<T>(new EqualsArgumentMatcher(value));
+            return ArgSpecQueue.EnqueueSpecFor<T>(new EqualsArgumentMatcher<T>(value));
+        }
+
+        /// <summary>
+        /// Match argument that is equal to <paramref name="value"/> using specific <paramref name="comparer"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static T Is<T>(T value, IEqualityComparer<T> comparer)
+        {
+            return ArgSpecQueue.EnqueueSpecFor<T>(new EqualsArgumentMatcher<T>(value, comparer));
         }
 
         /// <summary>
